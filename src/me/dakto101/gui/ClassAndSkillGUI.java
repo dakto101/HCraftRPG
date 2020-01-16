@@ -35,8 +35,6 @@ public class ClassAndSkillGUI {
 		infoMeta.setDisplayName("§7§lLớp của bạn: §6§l" + (playerClassName.equals("") ? "Không có" : playerClassName));
 		info.setItemMeta(infoMeta);
 		
-		player.sendMessage("" + PlayerClassAPI.getPlayerClass(player, playerClassName));
-		
 		PlayerClass pc = null;
 		pc = PlayerClassAPI.getPlayerClass(player, playerClassName);
 		if (pc != null) {
@@ -57,7 +55,6 @@ public class ClassAndSkillGUI {
 				skillInfoLore.addAll(desc);
 				skillInfoMeta.setLore(skillInfoLore);
 				skillInfo.setItemMeta(skillInfoMeta);
-				
 				inv.setItem(i, skillInfo);
 				
 			}
