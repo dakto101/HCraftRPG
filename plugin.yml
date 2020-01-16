@@ -1,0 +1,10 @@
+name: HCraftRPG
+main: me.dakto101.HCraftRPG
+version: 1.0
+api-version: 1.14
+depend: 
+softdepend: []
+commands:
+    hcraftrpg:
+        description: aa.
+        usage: /<command>
