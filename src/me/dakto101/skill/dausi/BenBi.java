@@ -1,5 +1,7 @@
 package me.dakto101.skill.dausi;
 
+import java.util.Arrays;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
@@ -15,7 +17,7 @@ public class BenBi extends PassiveSkill implements Cooldown  {
 	public BenBi(int level) {
 		super("Bền Bỉ", level);
 		this.cooldown = 0;
-		this.description = "§7Giảm §6(0.5 + Cấp X 0.4)§7 sát thương từ đòn đánh thường.";
+		this.description = Arrays.asList("§7Giảm §6(0.5 + Cấp X 0.4)§7 sát thương từ đòn đánh thường.");
 	}
 	
 	@Override

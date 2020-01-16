@@ -1,5 +1,6 @@
 package me.dakto101.skill.dausi;
 
+import java.util.Arrays;
 import java.util.Hashtable;
 
 import org.bukkit.Bukkit;
@@ -28,10 +29,9 @@ public class GiaoChien extends ActiveSkill implements Cooldown  {
 	public GiaoChien(int level) {
 		super("Giao Chiến", level);
 		this.cooldown = 15;
-		this.description = "§7Nhận hiệu ứng §bSức mạnh II§7 trong 4 giây, gây hiệu ứng §bSuy yếu II §7và §bChậm II\n"		
-		+ "§7cho kẻ địch trong 4 giây và gây §6(8 + 2 X cấp) §7sát thương vật lý. (" + cooldown + "s hồi)"
-				+ "\n§7Yêu cầu: §bRìu";
-		
+		this.description = Arrays.asList("§7Nhận hiệu ứng §bSức mạnh II§7 trong 4 giây, gây hiệu ứng §bSuy yếu II §7và §bChậm II", 
+				"§7cho kẻ địch trong 4 giây và gây §6(8 + 2 X cấp) §7sát thương vật lý. (" + cooldown + "s hồi)", 
+				"§7Yêu cầu: §bRìu");
 	}
 	
 	@Override

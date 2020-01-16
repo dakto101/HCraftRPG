@@ -6,9 +6,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.dakto101.gui.MenuGUI;
+import me.dakto101.playerclass.DauSi;
 import me.dakto101.playerclass.PlayerClass;
-import me.dakto101.playerclass.PlayerClassAPI;
-import me.dakto101.playerclass.dausi.DauSi;
 
 public class HCraftRPGCommand implements CommandExecutor {
 	

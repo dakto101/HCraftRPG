@@ -5,8 +5,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.dakto101.database.MySQL;
 import me.dakto101.gui.GUIListener;
+import me.dakto101.playerclass.DauSi;
 import me.dakto101.playerclass.PlayerClassAPI;
-import me.dakto101.playerclass.dausi.DauSi;
 import me.dakto101.skill.SkillAPI;
 import me.dakto101.skill.dausi.BenBi;
 import me.dakto101.skill.dausi.GiaoChien;

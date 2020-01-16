@@ -1,5 +1,6 @@
 package me.dakto101.skill.dausi;
 
+import java.util.Arrays;
 import java.util.Hashtable;
 
 import org.bukkit.Bukkit;
@@ -21,9 +22,9 @@ public class KetLieu extends PassiveSkill implements Cooldown  {
 	public KetLieu(int level) {
 		super("Kết Liễu", level);
 		this.cooldown = 40;
-		this.description = "§7Khi kẻ địch còn dưới §c30% máu§7, đòn đánh kế tiếp gây thêm \n"
-				+ "§610 + 2 X cấp§7 sát thương vật lý. (" + cooldown + "s hồi)"
-				+ "\n§7Yêu cầu: §bRìu";
+		this.description = Arrays.asList("§7Khi kẻ địch còn dưới §c30% máu§7, đòn đánh kế tiếp gây thêm ", 
+				"§610 + 2 X cấp§7 sát thương vật lý. (" + cooldown + "s hồi)", 
+				"§7Yêu cầu: §bRìu");
 	}
 	
 	@Override

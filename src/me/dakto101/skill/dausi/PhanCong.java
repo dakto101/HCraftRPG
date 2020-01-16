@@ -1,5 +1,7 @@
 package me.dakto101.skill.dausi;
 
+import java.util.Arrays;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_14_R1.entity.CraftLivingEntity;
@@ -19,9 +21,9 @@ public class PhanCong extends PassiveSkill implements Cooldown  {
 	public PhanCong(int level) {
 		super("Phản Công", level);
 		this.cooldown = 0;
-		this.description = "§7Có §f(3 + 2 X Cấp)% xác suất §7phản lại §650%§7 sát thương \n"
-				+ "từ đòn đánh thường. "
-				+ "\n§7Yêu cầu: §bRìu";
+		this.description = Arrays.asList("§7Có §f(3 + 2 X Cấp)% xác suất §7phản lại §650%§7 sát thương ", 
+				"§7từ đòn đánh thường.", 
+				"§7Yêu cầu: §bRìu");
 	}
 	
 	@Override

@@ -1,11 +1,14 @@
 package me.dakto101.skill;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.event.Event;
 
 public abstract class Skill {
 	
 	protected String skillName;
-	protected String description;
+	protected List<String> description;
 	protected int cooldown;
 	protected int level;
 
@@ -14,7 +17,7 @@ public abstract class Skill {
 	public Skill(String skillName, int level) {
 		this.skillName = skillName;
 		this.level = level;
-		this.description = "";
+		this.description = Arrays.asList("");
 		this.cooldown = 0;
 		this.skillType = null;
 	}
@@ -25,7 +28,7 @@ public abstract class Skill {
 	public int getLevel() {
 		return this.level;
 	}
-	public String getDescription() {
+	public List<String> getDescription() {
 		return this.description;
 	}
 	public int getCooldown() {

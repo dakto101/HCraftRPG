@@ -52,7 +52,9 @@ public class ClassAndSkillGUI {
 				List<String> skillInfoLore = new ArrayList<String>();
 				skillInfoLore.add("§7Cấp độ: " + pcSkill.getLevel());
 				skillInfoLore.add("§7Loại kỹ năng: " + pcSkill.getSkillType().toString());
-				skillInfoLore.add("§7Mô tả: " + pcSkill.getDescription());
+				List<String> desc = pcSkill.getDescription();
+				desc.set(0, "§7Mô tả: " + desc.get(0).replaceAll("§7Mô tả: ", ""));
+				skillInfoLore.addAll(desc);
 				skillInfoMeta.setLore(skillInfoLore);
 				skillInfo.setItemMeta(skillInfoMeta);
 				
