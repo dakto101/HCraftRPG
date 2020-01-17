@@ -10,7 +10,7 @@ import me.dakto101.database.MySQL;
 import me.dakto101.database.MySQLResultSet;
 import me.dakto101.skill.Skill;
 
-public abstract class PlayerClass {
+public class PlayerClass {
 	
 	protected List<Skill> classSkills = new ArrayList<Skill>();
 	protected String className;
@@ -18,6 +18,10 @@ public abstract class PlayerClass {
 	protected long requireXP;
 	protected int skillPoint;
 	protected int level;
+	
+	public PlayerClass() {
+		
+	}
 	
 	public PlayerClass(String className) {
 		this.className = className;
@@ -56,7 +60,8 @@ public abstract class PlayerClass {
 	
 	public void loadPlayerClassFromSQL(Player p) {
 		//MySQL
-		String query = "select * from " + PlayerClassAPI.SQL_TABLE_NAME + " where player_uuid = '" + p.getUniqueId() + "';";
+		String query = "select * from " + PlayerClassAPI.SQL_TABLE_NAME
+				+ " where player_uuid = '" + p.getUniqueId() + "';";
 		try {
 			ResultSet rs;
 			MySQLResultSet sqlrs = MySQL.sendSelectQuery(query, MySQL.DBNAME_HCRAFT_RPG, false);

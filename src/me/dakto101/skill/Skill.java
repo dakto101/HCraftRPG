@@ -5,15 +5,12 @@ import java.util.List;
 
 import org.bukkit.event.Event;
 
-import me.dakto101.attribute.Attribute;
-
 public abstract class Skill {
 	
 	protected String skillName;
 	protected List<String> description;
 	protected int cooldown;
 	protected int level;
-	protected Attribute skillAttribute;
 
 	protected SkillType skillType;
 	
@@ -23,7 +20,6 @@ public abstract class Skill {
 		this.description = Arrays.asList("");
 		this.cooldown = 0;
 		this.skillType = null;
-		this.skillAttribute = new Attribute();
 	}
 	
 	public String getSkillName() {

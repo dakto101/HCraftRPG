@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import me.dakto101.attribute.AttributeType;
 import me.dakto101.event.PlayerCastPassiveSkillEvent;
 import me.dakto101.skill.Cooldown;
 import me.dakto101.skill.PassiveSkill;
@@ -31,8 +30,6 @@ public class KetLieu extends PassiveSkill implements Cooldown  {
 	
 	@Override
 	public void apply(Event event, int level) {
-		//Set default bonus damage
-		this.skillAttribute.set(AttributeType.DAMAGE_INCREASE, 0d);
 		//
 		if (level <= 0) return;
 		EntityDamageByEntityEvent e;
@@ -55,7 +52,7 @@ public class KetLieu extends PassiveSkill implements Cooldown  {
 		if (eventt.isCancelled()) return;
 		//Code
 		float damage = 10 + level * 2;
-		this.skillAttribute.set(AttributeType.DAMAGE_INCREASE, (double) damage);
+		e.setDamage(e.getDamage() + damage);
 
 		target.getWorld().playSound(target.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 1, 1);
 		target.getWorld().spawnParticle(Particle.SMOKE_LARGE, target.getLocation(), 20);

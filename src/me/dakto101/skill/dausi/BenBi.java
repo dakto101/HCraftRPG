@@ -8,7 +8,6 @@ import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
-import me.dakto101.attribute.AttributeType;
 import me.dakto101.event.PlayerCastPassiveSkillEvent;
 import me.dakto101.skill.Cooldown;
 import me.dakto101.skill.PassiveSkill;
@@ -19,7 +18,6 @@ public class BenBi extends PassiveSkill implements Cooldown  {
 		super("Bền Bỉ", level);
 		this.cooldown = 0;
 		this.description = Arrays.asList("§7Giảm §6(0.5 + Cấp X 0.4)§7 sát thương từ đòn đánh thường.");
-		this.skillAttribute.set(AttributeType.DAMAGE_REDUCTION, 0.5 + level * 0.4);
 	}
 	
 	@Override
@@ -34,6 +32,9 @@ public class BenBi extends PassiveSkill implements Cooldown  {
 		//Event
 		PlayerCastPassiveSkillEvent eventt = new PlayerCastPassiveSkillEvent(this);
 		Bukkit.getServer().getPluginManager().callEvent(eventt);
+		//Code
+		float reduction = (float) (0.5 + level * 0.4);
+		e.setDamage(e.getDamage() - reduction);
 	}
 
 	@Override
