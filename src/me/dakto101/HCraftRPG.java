@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.dakto101.database.MySQL;
 import me.dakto101.gui.GUIListener;
+import me.dakto101.player.HCraftPlayerListener;
 import me.dakto101.playerclass.DauSi;
 import me.dakto101.playerclass.PlayerClassAPI;
 import me.dakto101.skill.SkillAPI;
@@ -24,7 +25,7 @@ public class HCraftRPG extends JavaPlugin {
 		
 		
 		getLogger().info("Plugin cua server HCraft da chay thanh cong!" + this.getName());
-		registerEvents(new HCraftRPGListener(), new GUIListener());
+		registerEvents(new HCraftRPGListener(), new GUIListener(), new HCraftPlayerListener());
 		registerEvents(new DauSi());
 		SkillAPI.registerSkill(new GiaoChien(0), new KetLieu(0), new BenBi(0), new PhanCong(0));
 		PlayerClassAPI.registerPlayerClass(new DauSi());

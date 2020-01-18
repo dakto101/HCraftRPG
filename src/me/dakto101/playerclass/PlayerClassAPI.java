@@ -19,10 +19,10 @@ public class PlayerClassAPI {
 		return classList;
 	}
 	
-	public static PlayerClass getPlayerClass(Player p, String className) {
+	public static PlayerClass getPlayerClass(Player p) {
 		PlayerClass c = null;
 		for (PlayerClass classes : classList) {
-			if (classes.getClassName().equals(className)) {
+			if (classes.getClassName().equals(getPlayerClassName(p))) {
 				c = classes;
 				c.loadPlayerClassFromSQL(p);
 				break;
@@ -35,10 +35,11 @@ public class PlayerClassAPI {
 		for (PlayerClass c : playerClass) classList.add(c);
 	}
 	
-	public static String getPlayerClassName(String playerName) {
+	public static String getPlayerClassName(Player p) {
 		//MySQL
 		String className = "";
-		String query = "select * from " + SQL_TABLE_NAME + " where player_name = '" + playerName + "';";
+		String query = "select * from " + SQL_TABLE_NAME 
+				+ " where player_uuid = '" + p.getUniqueId() + "';";
 		try {
 			ResultSet rs;
 			MySQLResultSet sqlrs = MySQL.sendSelectQuery(query, MySQL.DBNAME_HCRAFT_RPG, false);
@@ -48,7 +49,7 @@ public class PlayerClassAPI {
 			}
 			sqlrs.getConnection().close();
 		} catch (Exception e) {
-			String error = "HCraftRPG: Khong load duoc du lieu cua nguoi choi " + playerName + "(PlayerClassAPI.java)";
+			String error = "HCraftRPG: Khong load duoc du lieu cua nguoi choi " + p.getName() + "(PlayerClassAPI.java)";
 			Bukkit.getLogger().info(error);
 		}
 		return className;

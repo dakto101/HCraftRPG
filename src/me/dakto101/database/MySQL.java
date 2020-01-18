@@ -22,7 +22,7 @@ public class MySQL {
 				+ "luck INT(4), "
 				+ "endurance INT(4), "
 				+ ""
-				+ "CONSTRAINT pk_id PRIMARY KEY(id), "
+				+ "CONSTRAINT pk_id PRIMARY KEY(id)"
 				+ ") ENGINE = INNODB;";
 		String createClassAndSkillTable = "CREATE TABLE IF NOT EXISTS class_and_skill("
 				+ "id INT(11) NOT NULL AUTO_INCREMENT, "

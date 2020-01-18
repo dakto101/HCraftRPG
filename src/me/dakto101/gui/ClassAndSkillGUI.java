@@ -31,12 +31,12 @@ public class ClassAndSkillGUI {
 		
 		ItemStack info = new ItemStack(Material.PAPER, 1);
 		ItemMeta infoMeta = info.getItemMeta();
-		String playerClassName = PlayerClassAPI.getPlayerClassName(player.getName());
+		String playerClassName = PlayerClassAPI.getPlayerClassName(player);
 		infoMeta.setDisplayName("§7§lLớp của bạn: §6§l" + (playerClassName.equals("") ? "Không có" : playerClassName));
 		info.setItemMeta(infoMeta);
 		
 		PlayerClass pc = null;
-		pc = PlayerClassAPI.getPlayerClass(player, playerClassName);
+		pc = PlayerClassAPI.getPlayerClass(player);
 		if (pc != null) {
 			List<Skill> pcSkills = new ArrayList<Skill>();
 			pcSkills = pc.getClassSkills();
