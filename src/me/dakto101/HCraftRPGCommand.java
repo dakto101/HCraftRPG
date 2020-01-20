@@ -6,8 +6,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.dakto101.gui.MenuGUI;
-import me.dakto101.playerclass.DauSi;
-import me.dakto101.playerclass.PlayerClass;
 
 public class HCraftRPGCommand implements CommandExecutor {
 	
@@ -22,10 +20,7 @@ public class HCraftRPGCommand implements CommandExecutor {
 				if ((args[0].toString().equals("test") && (sender.hasPermission(HCraftRPGPermission.ADMIN)))) {
 					//Insert test code here...
 					if (sender instanceof Player) {
-						Player p = (Player) sender;
-						PlayerClass pc = new DauSi();
-						pc.loadPlayerClassFromSQL(p);
-						pc.savePlayerClassToSQL(p);
+						
 					}
 					//
 				}
@@ -37,6 +32,7 @@ public class HCraftRPGCommand implements CommandExecutor {
 			}
 			if ((args.length >= 2)) {
 				
+				return true;
 			}
 			
 			if ((args.length == 0) && (sender.hasPermission(HCraftRPGPermission.MENU_MAINMENU))) {

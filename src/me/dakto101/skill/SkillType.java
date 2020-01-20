@@ -2,7 +2,7 @@ package me.dakto101.skill;
 
 public enum SkillType {
 	
-	ACTIVE("Mobifone"), PASSIVE("Viettel");
+	ACTIVE("Kích hoạt"), PASSIVE("Bị động");
 
 	private String name;
 

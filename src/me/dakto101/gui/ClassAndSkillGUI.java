@@ -31,11 +31,18 @@ public class ClassAndSkillGUI {
 		
 		ItemStack info = new ItemStack(Material.PAPER, 1);
 		ItemMeta infoMeta = info.getItemMeta();
-		String playerClassName = PlayerClassAPI.getPlayerClassName(player);
-		infoMeta.setDisplayName("§7§lLớp của bạn: §6§l" + (playerClassName.equals("") ? "Không có" : playerClassName));
+		PlayerClass pc = PlayerClassAPI.getPlayerClass(player);
+		pc.loadPlayerClassFromSQL();
+		infoMeta.setDisplayName("§f§lLớp của bạn: §6§l" + (pc == null ? "Không có" : pc.getClassName()));
+		List<String> infoLore = new ArrayList<String>();
+		if (pc != null) {
+			infoLore.add("§7Cấp độ: §6" + pc.getLevel());
+			infoLore.add("§7Kinh nghiệm: §6" + pc.getXP() + " / " + (pc.getRequireXP() + pc.getXP()));
+			infoLore.add("§7Điểm cộng kỹ năng: §6" + pc.getSkillPoint());
+		}
+		infoMeta.setLore(infoLore);
 		info.setItemMeta(infoMeta);
-		
-		PlayerClass pc = null;
+
 		pc = PlayerClassAPI.getPlayerClass(player);
 		if (pc != null) {
 			List<Skill> pcSkills = new ArrayList<Skill>();
@@ -59,9 +66,14 @@ public class ClassAndSkillGUI {
 				
 			}
 		}
+		ItemStack mainmenu = new ItemStack(Material.ARROW, 1);
+		ItemMeta mainmenuMeta = mainmenu.getItemMeta();
+		mainmenuMeta.setDisplayName("§f§lQuay về danh mục");
+		mainmenu.setItemMeta(mainmenuMeta);
 
 		
 		inv.setItem(10, info);
+		inv.setItem(inv.getSize() - 1, mainmenu);
 		
 		player.openInventory(inv);
 		player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 1, 1);

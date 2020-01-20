@@ -1,5 +1,6 @@
 package me.dakto101.playerclass;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -12,8 +13,9 @@ import me.dakto101.skill.dausi.PhanCong;
 
 public class DauSi extends PlayerClass implements Listener {
 
-	public DauSi() {
-		super("Đấu Sĩ");
+	public DauSi(Player player) {
+		super(player);
+		this.className = "Đấu Sĩ";
 		this.classSkills.add(new GiaoChien(0));
 		this.classSkills.add(new KetLieu(0));
 		this.classSkills.add(new BenBi(0));

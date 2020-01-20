@@ -111,9 +111,11 @@ public class GUIListener implements Listener {
 		Player p = null;
 		if (e.getWhoClicked() instanceof Player) p = (Player) e.getWhoClicked();
 		else return;
-		
 		int clickedSlot = e.getSlot();
 		switch (clickedSlot) {
+		case 26: {
+			MenuGUI.open(p); break;
+		}
 		default: 
 			p.playSound(e.getWhoClicked().getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
 		}

@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 
 import me.dakto101.database.MySQL;
 import me.dakto101.database.MySQLResultSet;
+import me.dakto101.event.PlayerStatLoadEvent;
+import me.dakto101.event.PlayerStatSaveEvent;
 
 public class PlayerStat {
 
@@ -46,6 +48,9 @@ public class PlayerStat {
 				this.playerStats.putIfAbsent(PlayerStatType.ENDURANCE, rs.getInt(10));
 			}
 			sqlrs.getConnection().close();
+			//Call event
+			PlayerStatLoadEvent event = new PlayerStatLoadEvent(this, p);
+			Bukkit.getServer().getPluginManager().callEvent(event);
 		} catch (Exception e) {
 			String error = "HCraftRPG: Khong load duoc du lieu cua nguoi choi " + p.getName() + "(" + this.getClass().getName() + ")";
 			Bukkit.getLogger().info(error);
@@ -67,6 +72,9 @@ public class PlayerStat {
 		try {
 			MySQL.sendQuery(query1, MySQL.DBNAME_HCRAFT_RPG, false);
 			MySQL.sendQuery(query2, MySQL.DBNAME_HCRAFT_RPG, false);
+			//Call Event
+			PlayerStatSaveEvent event = new PlayerStatSaveEvent(this, p);
+			Bukkit.getServer().getPluginManager().callEvent(event);
 		} catch (Exception e) {
 			String error = "HCraftRPG: Khong luu duoc du lieu cua nguoi choi " + p.getName() + "(" + this.getClass().getName() + ")";
 			Bukkit.getConsoleSender().sendMessage(error);

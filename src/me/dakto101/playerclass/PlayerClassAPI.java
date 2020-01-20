@@ -3,7 +3,6 @@ package me.dakto101.playerclass;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -18,24 +17,29 @@ public class PlayerClassAPI {
 	public static List<PlayerClass> getAllPlayerClass() {
 		return classList;
 	}
-	
 	public static PlayerClass getPlayerClass(Player p) {
 		PlayerClass c = null;
-		for (PlayerClass classes : classList) {
-			if (classes.getClassName().equals(getPlayerClassName(p))) {
-				c = classes;
-				c.loadPlayerClassFromSQL(p);
-				break;
+		//Lấy trong database ra.
+		try {
+			for (PlayerClass classes : classList) {
+				if (classes.getClassName().equals(getPlayerClassName(p))) {
+					c = classes;
+					c.loadPlayerClassFromSQL();
+					break;
+				}
 			}
+		} catch (Exception e) {
+			String error = "HCraftRPG: Khong load duoc du lieu cua nguoi choi " + p.getName() + "(PlayerClassAPI.java, getPlayerClass(Player))";
+			Bukkit.getLogger().info(error);
 		}
+
 		return c;
 	}
 	
 	public static void registerPlayerClass(PlayerClass... playerClass) {
 		for (PlayerClass c : playerClass) classList.add(c);
 	}
-	
-	public static String getPlayerClassName(Player p) {
+	private static String getPlayerClassName(Player p) {
 		//MySQL
 		String className = "";
 		String query = "select * from " + SQL_TABLE_NAME 

@@ -19,6 +19,7 @@ public class PlayerStatGUI {
 	
 	public static final String PLAYER_STAT_GUI = "§2§a§b§e§7§f§2§lChỉ số của bạn";
 	
+
 	@SuppressWarnings("deprecation")
 	public static void open(Player player) {
 		Inventory inv = HCraftRPG.plugin.getServer().createInventory(null, 54, PLAYER_STAT_GUI);
