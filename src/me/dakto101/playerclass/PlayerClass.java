@@ -4,13 +4,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
+import org.bukkit.OfflinePlayer;
 import me.dakto101.database.MySQL;
 import me.dakto101.database.MySQLResultSet;
 import me.dakto101.event.PlayerClassLevelChangeEvent;
 import me.dakto101.event.PlayerClassLoadEvent;
 import me.dakto101.event.PlayerClassSaveEvent;
+import me.dakto101.event.PlayerClassSkillPointChangeEvent;
 import me.dakto101.event.PlayerClassXPChangeEvent;
 import me.dakto101.skill.Skill;
 
@@ -22,10 +22,14 @@ public abstract class PlayerClass {
 	protected long requireXP;
 	protected int skillPoint;
 	protected int level;
-	protected Player player;
+	protected OfflinePlayer player;
 	
-	public PlayerClass(Player player) {
+	public PlayerClass(OfflinePlayer player) {
 		this.player = player;
+		this.requireXP = 1;
+		this.xp = 0;
+		this.skillPoint = 0;
+		this.level = 0;
 	}
 	
 	public PlayerClass(String className) {
@@ -50,23 +54,34 @@ public abstract class PlayerClass {
 	public int getLevel() {
 		return this.level;
 	}
-	public Player getPlayer() {
+	public OfflinePlayer getPlayer() {
 		return this.player;
 	}
-	public void setXP(long xp) {
+	public void setPlayer(OfflinePlayer p) {
+		this.player = p;
+	}
+	public void setXP(long xp, boolean callEvent) {
 		PlayerClassXPChangeEvent event = new PlayerClassXPChangeEvent(this, xp - this.xp);
-		Bukkit.getServer().getPluginManager().callEvent(event);
+		if (callEvent == true) {
+			Bukkit.getServer().getPluginManager().callEvent(event);
+		}
 		this.xp = event.getXPAdd() + this.xp;
 	}
-	public void setSkillPoint(int skillPoint) {
-		this.skillPoint = skillPoint;
+	public void setSkillPoint(int skillPoint, boolean callEvent) {
+		PlayerClassSkillPointChangeEvent event = new PlayerClassSkillPointChangeEvent(this, skillPoint - this.skillPoint);
+		if (callEvent == true) {
+			Bukkit.getServer().getPluginManager().callEvent(event);
+		}
+		this.skillPoint = event.getSkillPointAdd() + this.skillPoint;
 	}
-	public void setRequireXP(int requireXP) {
+	public void setRequireXP(long requireXP) {
 		this.requireXP = requireXP;
 	}
-	public void setLevel(int level) {
+	public void setLevel(int level, boolean callEvent) {
 		PlayerClassLevelChangeEvent event = new PlayerClassLevelChangeEvent(this, level - this.level);
-		Bukkit.getServer().getPluginManager().callEvent(event);
+		if (callEvent == true) {
+			Bukkit.getServer().getPluginManager().callEvent(event);
+		}
 		this.level = event.getLevelAdd() + this.level;
 	}
 	
@@ -125,12 +140,24 @@ public abstract class PlayerClass {
 			String error = "HCraftRPG: Khong luu duoc du lieu cua nguoi choi " + this.player.getName() + "(" + this.getClass().getName() + ")";
 			Bukkit.getConsoleSender().sendMessage(error);
 			Bukkit.getLogger().info(error);
-		}
+		} 
+	}
+
+	
+	public void reset() {
+		this.skillPoint = 1;
+		this.classSkills.get(0).setLevel(0);
+		this.classSkills.get(1).setLevel(0);
+		this.classSkills.get(2).setLevel(0);
+		this.classSkills.get(3).setLevel(0);
+		this.xp = 0;
+		this.level = 1;
+		this.requireXP = PlayerClassAPI.getRequireXP(this.level);
 	}
 	
 	@Override
 	public String toString() {
-		return "[className = " + className + ", xp = " + xp + ", requireXP = " + requireXP + ", skillPoint = " + skillPoint + ", level = " + level + "]";
+		return "[className = " + className + ", xp = " + xp + " / " + requireXP + ", skillPoint = " + skillPoint + ", level = " + level + ", player = " + player + "]";
 	}	
 	
 	

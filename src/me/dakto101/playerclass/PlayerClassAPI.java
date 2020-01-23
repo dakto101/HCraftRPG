@@ -4,8 +4,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
+import org.bukkit.OfflinePlayer;
 import me.dakto101.database.MySQL;
 import me.dakto101.database.MySQLResultSet;
 
@@ -17,13 +16,14 @@ public class PlayerClassAPI {
 	public static List<PlayerClass> getAllPlayerClass() {
 		return classList;
 	}
-	public static PlayerClass getPlayerClass(Player p) {
+	public static PlayerClass getPlayerClass(OfflinePlayer p) {
 		PlayerClass c = null;
 		//Lấy trong database ra.
 		try {
 			for (PlayerClass classes : classList) {
 				if (classes.getClassName().equals(getPlayerClassName(p))) {
 					c = classes;
+					c.setPlayer(p);
 					c.loadPlayerClassFromSQL();
 					break;
 				}
@@ -39,7 +39,7 @@ public class PlayerClassAPI {
 	public static void registerPlayerClass(PlayerClass... playerClass) {
 		for (PlayerClass c : playerClass) classList.add(c);
 	}
-	private static String getPlayerClassName(Player p) {
+	private static String getPlayerClassName(OfflinePlayer p) {
 		//MySQL
 		String className = "";
 		String query = "select * from " + SQL_TABLE_NAME 
@@ -57,6 +57,29 @@ public class PlayerClassAPI {
 			Bukkit.getLogger().info(error);
 		}
 		return className;
+	}
+	
+	public static long getRequireXP(int level) {
+		return (long) (3 + Math.pow(level, 1.62));
+	}
+	
+	public static long getTotalRequireXP(int level) {
+		long result = 0;
+		for (int i = 1; i < level + 1; i++) {
+			result += getRequireXP(i);
+		}
+		return result;
+	}
+	
+	public static void createNewPlayerClassToSQL(OfflinePlayer player) {
+		String query1 = "INSERT IGNORE INTO " + PlayerClassAPI.SQL_TABLE_NAME + " (player_uuid, player_name, class_name, skill_point, skill1, skill2, skill3, skill4, xp, require_xp, level) VALUES ('" + player.getUniqueId() + "', '" + player.getName() + "', 'Đấu Sĩ', 0, 0, 0, 0, 0, 0, 0, 0);";
+		try {
+			MySQL.sendQuery(query1, MySQL.DBNAME_HCRAFT_RPG, false);
+		} catch (Exception exception) {
+			String error = "HCraftRPG: Khong tao du lieu mac dinh cho nguoi choi " + player.getName() + " (" + PlayerClass.class.getName() + ")";
+			Bukkit.getConsoleSender().sendMessage(error);
+			Bukkit.getLogger().info(error);
+		} 
 	}
 	
 }

@@ -20,10 +20,7 @@ public class DauSi extends PlayerClass implements Listener {
 		this.classSkills.add(new KetLieu(0));
 		this.classSkills.add(new BenBi(0));
 		this.classSkills.add(new PhanCong(0));
-		this.requireXP = 1;
-		this.xp = 0;
-		this.skillPoint = 0;
-		this.level = 0;
+
 	}
 
 	@EventHandler
