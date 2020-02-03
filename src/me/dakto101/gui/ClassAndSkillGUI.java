@@ -32,18 +32,18 @@ public class ClassAndSkillGUI {
 		ItemStack info = new ItemStack(Material.PAPER, 1);
 		ItemMeta infoMeta = info.getItemMeta();
 		PlayerClass pc = PlayerClassAPI.getPlayerClass(player);
-		pc.loadPlayerClassFromSQL();
+		if (pc != null) pc.loadPlayerClassFromSQL();
 		infoMeta.setDisplayName("§f§lLớp của bạn: §6§l" + (pc == null ? "Không có" : pc.getClassName()));
 		List<String> infoLore = new ArrayList<String>();
 		if (pc != null) {
 			infoLore.add("§7Cấp độ: §6" + pc.getLevel());
 			infoLore.add("§7Kinh nghiệm: §6" + pc.getXP() + " / " + (pc.getRequireXP() + pc.getXP()));
 			infoLore.add("§7Điểm cộng kỹ năng: §6" + pc.getSkillPoint());
+		} else {
+			infoLore.add("§cHãy tham gia một lớp (class) để xem chi tiết của nó.");
 		}
 		infoMeta.setLore(infoLore);
 		info.setItemMeta(infoMeta);
-
-		pc = PlayerClassAPI.getPlayerClass(player);
 		if (pc != null) {
 			List<Skill> pcSkills = new ArrayList<Skill>();
 			pcSkills = pc.getClassSkills();

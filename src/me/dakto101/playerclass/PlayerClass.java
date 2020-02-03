@@ -57,6 +57,9 @@ public abstract class PlayerClass {
 	public OfflinePlayer getPlayer() {
 		return this.player;
 	}
+	public void setClassSkills(List<Skill> classSkills) {
+		this.classSkills = classSkills;
+	}
 	public void setPlayer(OfflinePlayer p) {
 		this.player = p;
 	}
@@ -157,8 +160,22 @@ public abstract class PlayerClass {
 	
 	@Override
 	public String toString() {
-		return "[className = " + className + ", xp = " + xp + " / " + requireXP + ", skillPoint = " + skillPoint + ", level = " + level + ", player = " + player + "]";
+		List<String> list = new ArrayList<String>();
+		list.add("Tên người chơi: " + player.getName());
+		list.add("Tên lớp: " + className);
+		list.add("Điểm kinh nghiệm: " + xp + "/" + requireXP);
+		list.add("Cấp độ: " + level);
+		list.add("Điểm kỹ năng: " + skillPoint);
+		String skillLevel = "";
+		for (Skill s : this.classSkills) {
+			skillLevel += s.getLevel();
+			skillLevel += "/";
+		}
+		skillLevel = skillLevel.substring(0, skillLevel.length() - 1);
+		list.add("Thông số kỹ năng: " + skillLevel);
+		return list.toString();
+		//return "[className = " + className + ", xp = " + xp + " / " + requireXP + ", skillPoint = " + skillPoint + ", level = " + level + ", player = " + player + "]";
 	}	
-	
+
 	
 }

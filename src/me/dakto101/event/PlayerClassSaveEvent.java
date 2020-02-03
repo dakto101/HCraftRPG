@@ -1,7 +1,6 @@
 package me.dakto101.event;
 
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 
 import me.dakto101.playerclass.PlayerClass;

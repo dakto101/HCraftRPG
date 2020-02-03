@@ -76,10 +76,31 @@ public class PlayerClassAPI {
 		try {
 			MySQL.sendQuery(query1, MySQL.DBNAME_HCRAFT_RPG, false);
 		} catch (Exception exception) {
-			String error = "HCraftRPG: Khong tao du lieu mac dinh cho nguoi choi " + player.getName() + " (" + PlayerClass.class.getName() + ")";
+			String error = "HCraftRPG: Khong the tao du lieu mac dinh cho nguoi choi " + player.getName() + " (" + PlayerClass.class.getName() + ")";
 			Bukkit.getConsoleSender().sendMessage(error);
 			Bukkit.getLogger().info(error);
 		} 
 	}
+	
+	public static boolean changePlayerClassNameSQL(OfflinePlayer player, String className) {
+		boolean checkClassName = false;
+		for (PlayerClass pc : PlayerClassAPI.getAllPlayerClass()) {
+			if (pc.getClassName().equals(className)) checkClassName = true;
+		}
+		if (checkClassName == false) return checkClassName;
+		String query1 = "UPDATE " + PlayerClassAPI.SQL_TABLE_NAME + " "
+				+ "SET class_name = '" + className + "'"
+				+ " WHERE player_uuid = '" + player.getUniqueId() + "';";
+		try {
+			MySQL.sendQuery(query1, MySQL.DBNAME_HCRAFT_RPG, false);
+		} catch (Exception exception) {
+			String error = "HCraftRPG: Khong the thay doi ten class cho nguoi choi " + player.getName() + " (" + PlayerClass.class.getName() + ")";
+			Bukkit.getConsoleSender().sendMessage(error);
+			Bukkit.getLogger().info(error);
+		} 
+		return checkClassName;
+	}
+	
+	
 	
 }

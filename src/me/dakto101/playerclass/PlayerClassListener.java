@@ -11,9 +11,13 @@ import me.dakto101.event.PlayerClassXPChangeEvent;
 
 public class PlayerClassListener implements Listener{	
 	
-	//If xp > require then level up.
+	
 	@EventHandler
 	public void onXPChange(PlayerClassXPChangeEvent e) {
+		/*
+		 * + (xp > require) → level up.
+		 * + Send message on XP change.
+		 */
 		PlayerClass pc = e.getPlayerClass();
 		if (pc == null) return;
 		if (pc.getPlayer() == null) return;
@@ -21,26 +25,26 @@ public class PlayerClassListener implements Listener{
 		if (pc.getPlayer().isOnline()) {
 			Player p = (Player) pc.getPlayer();
 			if (e.getXPAdd() > 0) p.sendMessage("§a+ §6" + e.getXPAdd() + "§a XP.");
-			if (e.getXPAdd() < 0) p.sendMessage("§a- §6" + Math.abs(e.getXPAdd()) + "§aXP.");
+			if (e.getXPAdd() < 0) p.sendMessage("§a- §6" + Math.abs(e.getXPAdd()) + "§a XP.");
 		}
 		
-
-		long requireXP = pc.getRequireXP();
-		long currentXP = pc.getXP();
-		long xpAdd = e.getXPAdd();
-		if (currentXP + xpAdd >= requireXP) {
+		pc.setXP(pc.getXP() + e.getXPAdd(), true);
+		//sua thanh for
+		while (pc.getXP() > pc.getRequireXP()) {
 			pc.setLevel(pc.getLevel() + 1, true);
-			pc.setXP(currentXP + xpAdd - requireXP, false);
-			pc.savePlayerClassToSQL();
+			pc.setXP(pc.getXP() - pc.getRequireXP(), false);
 		}
 
+		pc.savePlayerClassToSQL();
 	}
-	/*	Level up:
-	 * - Add skill point (1 point = 5 level)
-	 * - RequireXP = 3 + level^1.62
-	 */
+
 	@EventHandler
 	public void onLevelChange(PlayerClassLevelChangeEvent e) {
+		/*	Level up:
+		 * - Add skill point (1 point = 5 level)
+		 * - RequireXP = 3 + level^1.62
+		 * - Send message on level change.
+		 */
 		PlayerClass pc = e.getPlayerClass();
 		if (pc == null) return;
 		if (pc.getPlayer() == null) return;
@@ -52,6 +56,9 @@ public class PlayerClassListener implements Listener{
 	
 	@EventHandler
 	public void onSkillPointChange(PlayerClassSkillPointChangeEvent e) {
+		/*
+		 * + Send message on skill point change.
+		 */
 		PlayerClass pc = e.getPlayerClass();
 		if (pc == null) return;
 		if (pc.getPlayer() == null) return;
